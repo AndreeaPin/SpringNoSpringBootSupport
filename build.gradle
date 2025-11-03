@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'war' // we’ll deploy a WAR file to Tomcat
+}
+
+group = 'com.example'
+version = '1.0'
+description = 'Spring MVC without Spring Boot'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // --- Spring Framework core + webmvc ---
+    implementation 'org.springframework:spring-webmvc:6.1.5'
+
+    // --- Servlet and JSP APIs (provided by Tomcat) ---
+    providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    providedCompile 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.0.0'
+
+    // --- JSTL for JSP tags ---
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.1'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.war {
+    archiveFileName = 'spring-no-boot-gradle.war'
+}
